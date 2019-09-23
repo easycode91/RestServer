@@ -3,21 +3,21 @@ const { Router } = require('express');
 const router = Router();
 
 router
-    .get('/',(req,res)=>{
+    .get('/usuario',(req,res)=>{
         res.json(
             {
                message : 'Method GET'
             }
         );
     })
-    .get('/:id',(req,res)=>{
+    .get('/usuario/:id',(req,res)=>{
         res.json(
             {
                message : 'Method GET one data'
             }
         );
     })
-    .post('/',(req,res)=>{
+    .post('/usuario',(req,res)=>{
         let body = req.body
         if(body.name === undefined ){
             res.status(404).json(
@@ -35,14 +35,14 @@ router
         }
         
     })
-    .put('/:id',(req,res)=>{
+    .put('/usuario/:id',(req,res)=>{
         res.json(
             {
                message : 'Method PUT'
             }
         );
     })
-    .delete('/:id',(req,res)=>{
+    .delete('/usuario/:id',(req,res)=>{
         res.json(
             {
                message : 'Method DELETE'
