@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const Usuarios = require('../model/usuarios')
+const bcrypt = require('bcrypt');
 
 const router = Router();
 
@@ -19,20 +21,28 @@ router
     })
     .post('/usuario',(req,res)=>{
         let body = req.body
-        if(body.name === undefined ){
-            res.status(404).json(
-                {
-                    ok : false,
-                    err:'Name is necesary'
-                }
-            );
-        }{
-            res.status(200).json(
-                {
-                   message : req.body
-                }
-            );
+        const usuario = new Usuarios({
+            nombre : body.nombre,
+            email : body.email,
+            password : bcrypt.hashSync(body.password,10),
+            role : body.role
         }
+        ) 
+        usuario.save((err,usuarioDB) => {
+            if(err){
+                return res.status(400).json({
+                    ok : false,
+                    err
+                });
+            }else{
+                return res.status(200).json({
+                    ok : true,
+                    message : 'User created successfully',
+                    user : usuarioDB
+                });
+            }
+        })
+
         
     })
     .put('/usuario/:id',(req,res)=>{
