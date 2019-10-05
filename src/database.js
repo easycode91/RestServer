@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
  async function connectedDB() {
-  await  mongoose.connect('mongodb://localhost/cafe',
+  await  mongoose.connect(process.env.URL_DB,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
