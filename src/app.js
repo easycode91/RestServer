@@ -1,6 +1,7 @@
 require('./config/config')
 
 const express = require('express');
+const morgan = require('morgan')
 const { connectedDB } = require('./database');
 //Initialitation
 const app = express();
@@ -8,8 +9,9 @@ const app = express();
 //Middlewares
 app.use(express.urlencoded({ extended : false }));
 app.use(express.json())
+app.use(morgan('dev'));
 //Routes
-app.use(require('./routes/index'))
+app.use(require('./routes/index.routes'))
 //Database
 connectedDB();
 //Starting server
